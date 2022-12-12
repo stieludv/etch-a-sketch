@@ -43,12 +43,22 @@
             <div>Painting Mode: <span id="painting-mode-info"></span></div>
             <div>Grid Size (slider with small medium large presets?)
                 <div class="slider-container">
-                    <input id="grid-size-slider" class="slider" type="range" min="2" max="100" step="1" value="32" />
+                    <input id="grid-size-slider" class="slider grid-size-slider" type="range" min="2" max="100" step="1" value="32" />
                 </div>
                 <p>Grid size: <input type="number" min="2" max="100" step="1" id="grid-size-indicator"></input></p>
             </div>
-            <div>Grid Border Size (allow grid boxes to be rounded with border-radius)</div>
-            <div>Toggle Grid Lines</div>
+            <div>Grid Border Size (allow grid boxes to be rounded with border-radius)
+                <div class="slider-container">
+                    <input id="grid-box-br-slider" class="slider grid-box-br-slider" type="range" min="0" max="100" step="1" value="0" />
+                </div>
+                <p>Border radius: <input type="number" min="0" max="100" step="1" id="grid-box-br-indicator"></input>%</p>
+            </div>
+            <div>Grid Line Size
+                <div class="slider-container">
+                    <input id="grid-line-size-slider" class="slider" type="range" min="2" max="100" step="1" value="0" />
+                </div>
+                <p>Grid Line Size: <input type="number" min="0" max="100" step="1" id="grid-line-size-indicator"></input>px</p>
+            </div>
             <div><Button>Clear</Button></div>
             <div>Export to PNG</div>
             <div></div>

@@ -152,14 +152,37 @@ function handleGridSizeChange(gridSize) {
 }
 
 
+function handleGridBoxBorderRadiusChange(borderRadius) {
+    let safeBorderRadius = 0;
+    // Handle grid size for non integer values:
+    safeBorderRadius = Math.floor(borderRadius);
+    // Handle grid size for outside range values:
+    if (safeBorderRadius > 100) {
+        safeBorderRadius = 100;
+    }
+    if (safeBorderRadius < 0) {
+        safeBorderRadius = 0;
+    }
+    // Update grid-box-border-radius-indicator in settings pane
+    gridBoxBorderRadiusIndicator = document.body.querySelector("#grid-box-br-indicator");
+    gridBoxBorderRadiusIndicator.value = safeBorderRadius;
+    // Update grid-size-slider in settings pane
+    gridSizeSlider = document.body.querySelector("#grid-box-br-slider");
+    gridSizeSlider.value = safeBorderRadius;
+    // Update grid-box border-radius:
+    let rootElement = document.querySelector(":root");
+    rootElement.style.setProperty   ("--grid-box-border-radius", `${borderRadius}%`);
+}
+
+
 
 ///
 // Event listeneres to run our Etch-A-Sketch
 /// 
 
 // Listen for grid size slider value
-const sliders = document.querySelectorAll(".slider");
-sliders.forEach((slider) => {
+const gridSliders = document.querySelectorAll(".grid-size-slider");
+gridSliders.forEach((slider) => {
     slider.addEventListener('change', (e) => {
         handleGridSizeChange(e.target.value);
     })
@@ -169,6 +192,20 @@ sliders.forEach((slider) => {
 const gridSizeInput = document.querySelector("#grid-size-indicator");
 gridSizeInput.addEventListener('change', (e) => {
     handleGridSizeChange(e.target.value);
+})
+
+// Listen for grid size slider value
+const gridBoxBrSliders = document.querySelectorAll(".grid-box-br-slider");
+gridBoxBrSliders.forEach((slider) => {
+    slider.addEventListener('change', (e) => {
+        handleGridBoxBorderRadiusChange(e.target.value);
+    })
+})
+
+// Listen for grid size input value
+const gridBoxBrInput = document.querySelector("#grid-box-br-indicator");
+gridBoxBrInput.addEventListener('change', (e) => {
+    handleGridBoxBorderRadiusChange(e.target.value);
 })
 
 // Listen for painting

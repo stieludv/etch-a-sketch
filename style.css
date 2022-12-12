@@ -2,6 +2,8 @@
     --br-lg: 1rem;
     --br-md: 0.5rem;
     --br-sm: 0.3rem;
+    --grid-box-border-radius: 0%;
+    --grid-line-size: 0.5px;
 }
 
 body {
@@ -57,8 +59,7 @@ body {
 /* Grid Box */
 .grid-box {
     border-radius: 0;
-    border-radius: 20%;
-    border-radius: 100%;
+    border-radius: var(--grid-box-border-radius);
     background-color: white;
     aspect-ratio: 1/1;
 }
@@ -67,9 +68,8 @@ body {
 #eas-painting-board {
     box-shadow: 0 10px 0 0;
     display: grid;
-    grid-gap: 0px;
-    grid-gap: 1px;
-    padding: 1px;
+    grid-gap: var(--grid-line-size);
+    padding: var(--grid-line-size);
     background-color: black;
-    border-radius: 5px;
+    /* border-radius: 5px; */
 }
