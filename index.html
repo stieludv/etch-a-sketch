@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-A-Sketch</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="etch-a-sketch">
+        <h1 id="eas-title"></h1>
+        <div id="eas-settings-panel">
+            <!-- Click mouse inside etch a sketch to toggle drawing/not drawing mode -->
+            <!-- If mouse is held down for longer than a normal click, draw only while mouse is pressed down -->
+            <!-- Allow transparency in colours (RGBA) -->
+            <div>Pen/Fill Colour
+                <input class="colour-picker" type="color" />
+            </div>
+            <div>Background Colour</div>
+            <div>Grid Line Colour</div>
+            <div>Colour Fill</div>
+            <!-- Colour grabber is redundant -->
+            <!-- <div>Colour Grabber</div> -->
+            <div>Toggle Eraser</div>
+            <div>Toggle Rainbow</div>
+            <div>Toggle Shadowing</div>
+            <div>Toggle Lighten</div>
+            <div>Grid Size (slider with small medium large presets?)
+                <div class="slider-container">
+                    <input id="grid-size-slider" class="slider" type="range" min="2" max="100" step="1" value="32" />
+                </div>
+                <p>Grid size: <input type="number" min="2" max="100" step="1" id="grid-size-indicator"></input></p>
+            </div>
+            <div>Grid Border Size (allow grid boxes to be rounded with border-radius)</div>
+            <div>Toggle Grid Lines</div>
+            <div>Clear</div>
+            <div>Export to PNG</div>
+            <div></div>
+            <div></div>
+        </div>
+        <!-- Background for the board should be the checkeredboard for transparent PNG -->
+        <div id="eas-painting-board"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

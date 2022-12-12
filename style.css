@@ -1,0 +1,75 @@
+:root {
+    --br-lg: 1rem;
+    --br-md: 0.5rem;
+    --br-sm: 0.3rem;
+}
+
+body {
+    margin: 0;
+}
+
+.colour-picker-container {
+    border-radius: var(--br-md);
+}
+
+.colour-picker {
+    
+}
+
+.slider-container {
+    
+}
+
+.slider {
+    appearance: none;
+    background-color: rgba(50, 50, 50, 0.8);
+    border-radius: var(--br-sm);
+    box-shadow: 0 0 10px 0;
+    transition: all 0.1s ease-in-out;
+}
+
+.slider:hover {
+    scale: 1.1;
+}
+
+.slider::-webkit-slider-thumb {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    background-color: white;
+    border-radius: var(--br-sm);
+    transition: all 0.1s ease-in-out;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    scale: 1.4;
+}
+
+.slider::-moz-slider-thumb {
+
+}
+
+
+/*      */
+/* Grid */
+/*      */
+
+/* Grid Box */
+.grid-box {
+    border-radius: 0;
+    border-radius: 20%;
+    border-radius: 100%;
+    background-color: white;
+    aspect-ratio: 1/1;
+}
+
+/* Grid Board */
+#eas-painting-board {
+    box-shadow: 0 10px 0 0;
+    display: grid;
+    grid-gap: 0px;
+    grid-gap: 1px;
+    padding: 1px;
+    background-color: black;
+    border-radius: 5px;
+}
