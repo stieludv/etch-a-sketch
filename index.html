@@ -17,15 +17,30 @@
             <div>Pen/Fill Colour
                 <input class="colour-picker" type="color" />
             </div>
-            <div>Background Colour</div>
-            <div>Grid Line Colour</div>
-            <div>Colour Fill</div>
+            <div>Background Colour
+                <input class="colour-picker" type="color" />
+            </div>
+            <div>Grid Line Colour
+                <input class="colour-picker" type="color" />
+            </div>
             <!-- Colour grabber is redundant -->
             <!-- <div>Colour Grabber</div> -->
-            <div>Toggle Eraser</div>
-            <div>Toggle Rainbow</div>
-            <div>Toggle Shadowing</div>
-            <div>Toggle Lighten</div>
+            <div>
+                <h2>Painting Modes</h2>
+                <h3>-</h3>
+                <Button>Pen</Button>
+                <Button>Fill</Button>
+                <h3>-</h3>
+                <h2>Painting Settings</h2>
+                <h3>-</h3>
+                <Button>Colour</Button>
+                <Button>Rainbow</Button>
+                <Button>Shadow</Button>
+                <Button>Lighten</Button>
+                <Button>Eraser</Button>
+                <h3>-</h3>
+            </div>
+            <div>Painting Mode: <span id="painting-mode-info"></span></div>
             <div>Grid Size (slider with small medium large presets?)
                 <div class="slider-container">
                     <input id="grid-size-slider" class="slider" type="range" min="2" max="100" step="1" value="32" />
@@ -34,7 +49,7 @@
             </div>
             <div>Grid Border Size (allow grid boxes to be rounded with border-radius)</div>
             <div>Toggle Grid Lines</div>
-            <div>Clear</div>
+            <div><Button>Clear</Button></div>
             <div>Export to PNG</div>
             <div></div>
             <div></div>

@@ -86,6 +86,21 @@ function setGridLinesSize() {
 
 }
 
+// Painting mode & settings
+function changePaintingMode(mode) {
+    // Hover or Click to draw mode?
+}
+
+function changePaintingType(type) {
+    // Pen or Fill type?
+}
+
+function changePaintingColouring(colouring) {
+    // Colour, random colour, lighting, shadowing, or erasing?
+}
+
+
+
 function clearGrid() {
     // Get the current grid-size:
     const gridSize = document.body.querySelector("#grid-size-indicator").value;
