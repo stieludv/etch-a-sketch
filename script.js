@@ -171,7 +171,31 @@ function handleGridBoxBorderRadiusChange(borderRadius) {
     gridSizeSlider.value = safeBorderRadius;
     // Update grid-box border-radius:
     let rootElement = document.querySelector(":root");
-    rootElement.style.setProperty   ("--grid-box-border-radius", `${borderRadius}%`);
+    rootElement.style.setProperty("--grid-box-border-radius", `${safeBorderRadius}%`);
+}
+
+
+function handleGridLineSizeChange(gridLineSize) {
+    let safeGridLineSize = 0;
+    // Handle grid size for non integer values:
+    // Rounds to nearest 0.5
+    safeGridLineSize = Math.round(gridLineSize*2)/2;
+    // Handle grid size for outside range values:
+    if (safeGridLineSize > 10) {
+        safeGridLineSize = 10;
+    }
+    if (safeGridLineSize < 0) {
+        safeGridLineSize = 0;
+    }
+    // Update grid-line-size-indicator in settings pane
+    gridLineSizeIndicator = document.body.querySelector("#grid-line-size-indicator");
+    gridLineSizeIndicator.value = safeGridLineSize;
+    // Update grid-line-size-slider in settings pane
+    gridLineSizeSlider = document.body.querySelector("#grid-line-size-slider");
+    gridLineSizeSlider.value = safeGridLineSize;
+    // Update grid-line-size:
+    let rootElement = document.querySelector(":root");
+    rootElement.style.setProperty("--grid-line-size", `${safeGridLineSize}px`);
 }
 
 
@@ -207,6 +231,21 @@ const gridBoxBrInput = document.querySelector("#grid-box-br-indicator");
 gridBoxBrInput.addEventListener('change', (e) => {
     handleGridBoxBorderRadiusChange(e.target.value);
 })
+
+// Listen for grid line size slider value
+const gridLineSizeSliders = document.querySelectorAll("#grid-line-size-slider");
+gridLineSizeSliders.forEach((slider) => {
+    slider.addEventListener('change', (e) => {
+        handleGridLineSizeChange(e.target.value);
+    })
+})
+
+// Listen for grid line size input value
+const gridLineSizeInput = document.querySelector("#grid-line-size-indicator");
+gridLineSizeInput.addEventListener('change', (e) => {
+    handleGridLineSizeChange(e.target.value);
+})
+
 
 // Listen for painting
 const gridBoxes = document.querySelectorAll(".grid-box");
