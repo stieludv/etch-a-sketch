@@ -1,7 +1,12 @@
 
 ///
 // Function definitions for all the required functions
-/// 
+///
+
+// Capitalize first letter
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 // The currently selected colour (also applied when using colourFill)
 // Should perhaps be renamed to main colour or current colour or something similar
@@ -212,6 +217,12 @@ function handleBoardColourChange(boardColour) {
 }
 
 
+function handlePaintingColourChange(paintingColour) {
+    const paintingColourInput = document.querySelector("#painting-colour");
+    paintingColourInput.dataset.colour = paintingColour;
+}
+
+
 
 ///
 // Event listeneres to run our Etch-A-Sketch
@@ -265,6 +276,46 @@ const boardColour = document.querySelector("#board-colour");
 boardColour.addEventListener('change', (e) => {
     handleBoardColourChange(e.target.value);
 }) 
+
+
+// Listen for pen/fill colour input value
+const paintingColour = document.querySelector("#painting-colour");
+paintingColour.addEventListener('change', (e) => {
+    handlePaintingColourChange(e.target.value);
+})
+
+
+// Listen for button clicks changing the settings
+const buttons = document.querySelectorAll(".button");
+buttons.forEach((button) => {
+    // For all Type buttons:
+    if (button.classList.contains("type")) {
+        button.addEventListener('click', () => {
+            // Update the paintingType to the buttons data- attr
+            const paintingType = document.querySelector("#painting-type-info");
+            paintingType.dataset.type = button.dataset.button;
+            paintingType.textContent = capitalizeFirstLetter(button.dataset.button);
+        })
+    }
+    // For all Mode buttons:
+    if (button.classList.contains("mode")) {
+        button.addEventListener('click', () => {
+            // Update the paintingMode to the buttons data- attr
+            const paintingMode = document.querySelector("#painting-mode-info");
+            paintingMode.dataset.mode = button.dataset.button;
+            paintingMode.textContent = capitalizeFirstLetter(button.dataset.button);
+        })
+    }
+    // For all Setting buttons:
+    if (button.classList.contains("setting")) {
+        button.addEventListener('click', () => {
+            // Update the paintingSetting to the buttons data- attr
+            const paintingSetting = document.querySelector("#painting-setting-info");
+            paintingSetting.dataset.setting = button.dataset.button;
+            paintingSetting.textContent = capitalizeFirstLetter(button.dataset.button);
+        })
+    }
+})
 
 
 // Listen for painting by placing event listeners on grid-boxes:

@@ -15,7 +15,7 @@
             <!-- If mouse is held down for longer than a normal click, draw only while mouse is pressed down -->
             <!-- Allow transparency in colours (RGBA) -->
             <div>Pen/Fill Colour
-                <input id="painting-colour" class="colour-picker" type="color" />
+                <input data-colour id="painting-colour" class="colour-picker" type="color" />
             </div>
             <div>Background/Grid Line Colour
                 <input id="board-colour" class="colour-picker" type="color" />
@@ -28,27 +28,27 @@
             <div>
                 <h2>Painting Types</h2>
                 <h3>-</h3>
-                <Button>Hover</Button>
-                <Button>Click</Button>
+                <Button data-button="hover" class="button type">Hover</Button>
+                <Button data-button="click" class="button type">Click</Button>
                 <h3>-</h3>
                 <h2>Painting Modes</h2>
                 <h3>-</h3>
-                <Button>Pen</Button>
-                <Button>Fill</Button>
+                <Button data-button="pen" class="button mode">Pen</Button>
+                <Button data-button="fill" class="button mode">Fill</Button>
                 <h3>-</h3>
                 <h2>Painting Settings</h2>
                 <h3>-</h3>
-                <Button>Colour</Button>
-                <Button>Rainbow</Button>
-                <Button>Shadow</Button>
-                <Button>Lighten</Button>
-                <Button>Eraser</Button>
+                <Button data-button="colour" class="button setting">Colour</Button>
+                <Button data-button="rainbow" class="button setting">Rainbow</Button>
+                <Button data-button="shadow" class="button setting">Shadow</Button>
+                <Button data-button="lighten" class="button setting">Lighten</Button>
+                <Button data-button="eraser" class="button setting">Eraser</Button>
                 <h3>-</h3>
             </div>
 
-            <div>Painting Mode: <span data-mode="hover" id="painting-mode-info"></span></div>
-            <div>Painting Type: <span data-type="pen" id="painting-type-info"></span></div>
-            <div>Painting Setting: <span data-setting="colour" id="painting-setting-info"></span></div>
+            <div>Painting Type: <span data-type="hover" id="painting-type-info">Hover</span></div>
+            <div>Painting Mode: <span data-mode="pen" id="painting-mode-info">Pen</span></div>
+            <div>Painting Setting: <span data-setting="colour" id="painting-setting-info">Colour</span></div>
 
             <div>Grid Size (slider with small medium large presets?)
                 <div class="slider-container">
