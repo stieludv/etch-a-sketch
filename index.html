@@ -15,16 +15,16 @@
             <!-- If mouse is held down for longer than a normal click, draw only while mouse is pressed down -->
             <!-- Allow transparency in colours (RGBA) -->
             <div>Pen/Fill Colour
-                <input class="colour-picker" type="color" />
+                <input id="painting-colour" class="colour-picker" type="color" />
             </div>
             <div>Background/Grid Line Colour
-                <input class="colour-picker" type="color" />
+                <input id="board-colour" class="colour-picker" type="color" />
             </div>
             <!-- <div>Grid Line Colour
                 <input class="colour-picker" type="color" />
             </div> -->
             <!-- Colour grabber is redundant -->
-            <!-- <div>Colour Grabber</div> -->
+            <!-- <div>Colour Grabbesr</div> -->
             <div>
                 <h2>Painting Types</h2>
                 <h3>-</h3>
@@ -46,9 +46,9 @@
                 <h3>-</h3>
             </div>
 
-            <div>Painting Mode: <span id="painting-Mode-info"></span></div>
-            <div>Painting Type: <span id="painting-type-info"></span></div>
-            <div>Painting Setting: <span id="painting-setting-info"></span></div>
+            <div>Painting Mode: <span data-mode="hover" id="painting-mode-info"></span></div>
+            <div>Painting Type: <span data-type="pen" id="painting-type-info"></span></div>
+            <div>Painting Setting: <span data-setting="colour" id="painting-setting-info"></span></div>
 
             <div>Grid Size (slider with small medium large presets?)
                 <div class="slider-container">

@@ -72,4 +72,6 @@ body {
     padding: var(--grid-line-size);
     background-color: black;
     /* border-radius: 5px; */
+    min-height: 100%;
+    aspect-ratio: 1;
 }

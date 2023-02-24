@@ -89,6 +89,13 @@ function setGridLinesSize() {
 // Painting mode & settings
 function changePaintingMode(mode) {
     // Hover or Click to draw mode?
+    if (mode === "hover") {
+        // Set data-mode to corret mode 
+        // Update the painting mode info/indicator
+    }
+    if (mode === "click") {
+
+    }
 }
 
 function changePaintingType(type) {
@@ -199,6 +206,12 @@ function handleGridLineSizeChange(gridLineSize) {
 }
 
 
+function handleBoardColourChange(boardColour) {
+    const boardBackground = document.querySelector("#eas-painting-board");
+    boardBackground.style.background = boardColour;
+}
+
+
 
 ///
 // Event listeneres to run our Etch-A-Sketch
@@ -247,16 +260,37 @@ gridLineSizeInput.addEventListener('change', (e) => {
 })
 
 
-// Listen for painting
-const gridBoxes = document.querySelectorAll(".grid-box");
-gridBoxes.forEach((gridBox) => {
-    if (hoverPainting) {
-        // Run painting function on hoverEvents
-        gridBox.addEventListener('hover', (e) => {
-            
-        })
-    }
-    if (clickPainting) {
-        // Run painting function on keyDown events?
-    }
-})
+// Listen for background/border line colour input value
+const boardColour = document.querySelector("#board-colour");
+boardColour.addEventListener('change', (e) => {
+    handleBoardColourChange(e.target.value);
+}) 
+
+
+// Listen for painting by placing event listeners on grid-boxes:
+function paintingListeners() {
+    const gridBoxes = document.querySelectorAll(".grid-box");
+    gridBoxes.forEach((gridBox) => {
+        // Modes = [hoverPainting, clickPainting]
+        const mode = document.querySelector("#painting-mode-info").dataset.mode;
+        console.log(mode);
+        if (mode) {
+            // Clear all other painting event listeners on the painting board:
+            gridBox.removeEventListener('mousedown');
+
+            // Run painting function on hoverEvents
+            gridBox.addEventListener('hover', (e) => {
+                
+            })
+        }
+        if (mode) {
+            // Clear all other painting event listeners on the painting board:
+            gridBox.removeEventListener('hover');
+
+            // Run painting function on keyDown events?
+            gridBox.addEventListener('mousedown', (e) => {
+                
+            })
+        }
+    })
+}
