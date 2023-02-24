@@ -81,7 +81,41 @@ function generateGrid(gridSize) {
     board.append(...gridBoxes);
 
     // Takes three parameters, grid size, grid border size and grid box border radius
+
+    // Apply event listeners
+    paintingListeners()
 }
+
+
+// Event listener functions 
+function paint(e) {
+    e.preventDefault();
+    // Return if event.target is not a grid-box (so we don't accidentally change something on EAS-painting-board)
+    if (!e.target.classList.contains("grid-box")) {
+        return;
+    }
+    let colour = document.querySelector("#painting-colour").dataset.colour;
+    e.target.style.background = colour;
+    console.log(e.target);
+}
+
+
+function startClickPaint(e) {
+    paint(e);
+    const gridBoxes = document.querySelectorAll(".grid-box");
+    gridBoxes.forEach((gridBox) => {
+        gridBox.addEventListener('mouseover', paint);
+    })
+}
+
+
+function stopClickPaint() {
+    const gridBoxes = document.querySelectorAll(".grid-box");
+    gridBoxes.forEach((gridBox) => {
+        gridBox.removeEventListener('mouseover', paint);
+    })
+}
+
 
 function toggleGridLines() {
     
@@ -124,6 +158,13 @@ function exportGrid() {
     // html2canvas
     // Export canvas as PNG
     // the element we need to convert to canvas is #eas-painting-board
+}
+
+
+function paintBoard(target) {
+    // Target is the grid-box that is being painted
+    // We just need to get all the settings data and paint it accordingly
+
 }
 
 
@@ -295,6 +336,7 @@ buttons.forEach((button) => {
             const paintingType = document.querySelector("#painting-type-info");
             paintingType.dataset.type = button.dataset.button;
             paintingType.textContent = capitalizeFirstLetter(button.dataset.button);
+            paintingListeners();
         })
     }
     // For all Mode buttons:
@@ -321,27 +363,31 @@ buttons.forEach((button) => {
 // Listen for painting by placing event listeners on grid-boxes:
 function paintingListeners() {
     const gridBoxes = document.querySelectorAll(".grid-box");
-    gridBoxes.forEach((gridBox) => {
-        // Modes = [hoverPainting, clickPainting]
-        const mode = document.querySelector("#painting-mode-info").dataset.mode;
-        console.log(mode);
-        if (mode) {
-            // Clear all other painting event listeners on the painting board:
-            gridBox.removeEventListener('mousedown');
+    const board = document.querySelector("#eas-painting-board");
+
+    // Types = click or hover
+    const type = document.querySelector("#painting-type-info").dataset.type;
+
+    if (type === "hover") {
+        gridBoxes.forEach((gridBox) => {
+            gridBox.removeEventListener('mousedown', startClickPaint);
+            gridBox.removeEventListener('mouseup', stopClickPaint);
 
             // Run painting function on hoverEvents
-            gridBox.addEventListener('hover', (e) => {
-                
-            })
-        }
-        if (mode) {
-            // Clear all other painting event listeners on the painting board:
-            gridBox.removeEventListener('hover');
+            gridBox.addEventListener('mouseover', paint);
+        })
+    }
 
-            // Run painting function on keyDown events?
-            gridBox.addEventListener('mousedown', (e) => {
-                
-            })
-        }
-    })
+    if (type === "click") {
+        gridBoxes.forEach((gridBox) => {
+            // Clear all other painting event listeners on the painting board:
+            gridBox.removeEventListener('mouseover', paint, false);
+        })
+
+        // On mousedown inside board, apply eventlisteners for mouseover
+        board.addEventListener('mousedown', startClickPaint);
+
+        // If mouseup, remove event listeners - no longer painting
+        board.addEventListener('mouseup', stopClickPaint);
+    }
 }
