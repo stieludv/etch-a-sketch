@@ -32,7 +32,7 @@ function generateGrid(gridSize) {
         let el = document.createElement('div');
         // Add attributes, etc...
         el.setAttribute('class', `grid-box grid-box-${i + 1}`);
-
+        el.style.background = "#ffffff";
         gridBoxes.push(el);
     }
     
@@ -46,7 +46,7 @@ function generateGrid(gridSize) {
 }
 
 
-function hslToHex(h, s, l) {
+function hslToHex({h, s, l}) {
     l /= 100;
     const a = s * Math.min(l, 1 - l) / 100;
     const f = n => {
@@ -79,11 +79,14 @@ function hexToHSL(hex) {
         h /= 6;
         }
     let HSL = new Object();
-    HSL['h']=h;
-    HSL['s']=s;
-    HSL['l']=l;
+    HSL['h']=h * 360;
+    HSL['s']=s * 100;
+    HSL['l']=l * 100;
     return HSL;
 }
+
+
+const rgba2hex = (rgba) => `#${rgba.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*(\d+\.{0,1}\d*))?\)$/).slice(1).map((n, i) => (i === 3 ? Math.round(parseFloat(n) * 255) : parseFloat(n)).toString(16).padStart(2, '0').replace('NaN', '')).join('')}`
 
 
 // Generate rainbow colours
@@ -95,10 +98,10 @@ function rainbowColour(value) {
     if (value) {
         // Generate another colour based on previous value (keep trail going)
         if (value - 10 >= 360) {
-            H = 0 + (Math.random() * 10);
+            H = 0 + (Math.random() * 10) + 5;
         }
         else {
-            H = value + (Math.random() * 10);
+            H = value + (Math.random() * 10) + 5;
         }
     }
     else {
@@ -106,21 +109,33 @@ function rainbowColour(value) {
         H = Math.random() * 360;
     }
     // Returns [hexValue, Hue (HSL)]
-    return [hslToHex(H, S, L), H]
+    return [hslToHex({h: H, s: S, l: L}), H]
 }
 
 
 // Lightened colour generator
-function lightenColor(colour) {
-
-    return newColour;
+function lightenColour(colour) {
+    let hslColour = hexToHSL(colour);
+    if (hslColour['l'] < 90) {
+        hslColour['l'] += 10;
+    }
+    else {
+        hslColour['l'] = 100;
+    }
+    return hslToHex(hslColour);
 }
 
 
 // Darkened colour generator
 function darkenColour(colour) {
-
-    return newColour;
+    let hslColour = hexToHSL(colour);
+    if (hslColour['l'] > 10) {
+        hslColour['l'] -= 10;
+    }
+    else {
+        hslColour['l'] = 0;
+    }
+    return hslToHex(hslColour);
 }
 
 
@@ -131,9 +146,28 @@ function paint(e) {
     if (!e.target.classList.contains("grid-box")) {
         return;
     }
-    let colour = document.querySelector("#painting-colour").dataset.colour;
-    e.target.style.background = colour;
-    console.log(e.target);
+    const setting = document.querySelector("#painting-setting-info").dataset.setting;
+    const colour = document.querySelector("#painting-colour").dataset.colour;
+
+    if (setting === "colour") {
+        e.target.style.background = colour;
+    }
+    if (setting === "lighten") {
+        e.target.style.background = lightenColour(rgba2hex(e.target.style.background));
+    }
+    if (setting === "shadow") {
+        e.target.style.background = darkenColour(rgba2hex(e.target.style.background));
+    }
+
+    if (setting === "rainbow") {
+        // Get rainbow previous value (is there one?)
+        const rainbowDatasetValue = document.querySelector("#rainbow-button");
+        const rainbowPrevValue = Number(rainbowDatasetValue.dataset.value);
+        const rainbowNewColour = rainbowPrevValue === "" ? rainbowColour() : rainbowColour(rainbowPrevValue);
+        e.target.style.background = rainbowNewColour[0];
+        // Update rainbow current value
+        rainbowDatasetValue.dataset.value = rainbowNewColour[1];
+    }
 }
 
 
