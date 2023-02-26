@@ -126,6 +126,11 @@ body {
     transform: translateY(2px);
 }
 
+.disabled {
+    background-color: lightgray;
+    cursor: not-allowed;
+}
+
 
 /*      */
 /* Grid */
