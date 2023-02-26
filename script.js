@@ -3,53 +3,11 @@
 // Function definitions for all the required functions
 ///
 
-// Capitalize first letter
+
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-// The currently selected colour (also applied when using colourFill)
-// Should perhaps be renamed to main colour or current colour or something similar
-function penColour() {
-
-}
-
-// Sets the colour of the background (could be hidden under "more settings" perhaps?)
-function backgroundColour() {
-
-}
-
-// Sets the colour of the grid lines, if there are any (otherwise option can be hidden to clear clutter)
-function gridColour() {
-
-}
-
-// Fills all connecting boxes of the same colour with current colour
-function colourFill() {
-
-}
-
-// Grab the colour of the selected element
-function colourGrabber() {
-
-}
-
-// Eraser mode if selected (perhaps toggle name is misleading?)
-function toggleEraser() {
-
-}
-
-function toggleRainbow() {
-
-}
-
-function toggleShadowing() {
-
-}
-
-function toggleLighten() {
-
-}
 
 function clearGridBoard(gridBoard) {
     // Clear the board of previous boxes:
@@ -59,6 +17,7 @@ function clearGridBoard(gridBoard) {
         const removedBox = gridBoard.removeChild(gridBox);
     })
 }
+
 
 function generateGrid(gridSize) {
     // Board element
@@ -87,7 +46,85 @@ function generateGrid(gridSize) {
 }
 
 
-// Event listener functions 
+function hslToHex(h, s, l) {
+    l /= 100;
+    const a = s * Math.min(l, 1 - l) / 100;
+    const f = n => {
+        const k = (n + h / 30) % 12;
+        const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+        return Math.round(255 * color).toString(16).padStart(2, '0');   // convert to Hex and prefix "0" if needed
+    };
+    return `#${f(0)}${f(8)}${f(4)}`;
+}
+
+
+function hexToHSL(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        r = parseInt(result[1], 16);
+        g = parseInt(result[2], 16);
+        b = parseInt(result[3], 16);
+        r /= 255, g /= 255, b /= 255;
+        const max = Math.max(r, g, b), min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+        if(max == min){
+        h = s = 0; // achromatic
+        }else{
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max){
+            case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / d + 2; break;
+            case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+        }
+    let HSL = new Object();
+    HSL['h']=h;
+    HSL['s']=s;
+    HSL['l']=l;
+    return HSL;
+}
+
+
+// Generate rainbow colours
+function rainbowColour(value) {
+    // We will generate a random HSL colour so we can control S and L better (for human visible reasons)
+    let H = 0;
+    let S = 100;
+    let L = 50;
+    if (value) {
+        // Generate another colour based on previous value (keep trail going)
+        if (value - 10 >= 360) {
+            H = 0 + (Math.random() * 10);
+        }
+        else {
+            H = value + (Math.random() * 10);
+        }
+    }
+    else {
+        // Generate a completely random colour
+        H = Math.random() * 360;
+    }
+    // Returns [hexValue, Hue (HSL)]
+    return [hslToHex(H, S, L), H]
+}
+
+
+// Lightened colour generator
+function lightenColor(colour) {
+
+    return newColour;
+}
+
+
+// Darkened colour generator
+function darkenColour(colour) {
+
+    return newColour;
+}
+
+
+// Paint the board
 function paint(e) {
     e.preventDefault();
     // Return if event.target is not a grid-box (so we don't accidentally change something on EAS-painting-board)
@@ -117,14 +154,6 @@ function stopClickPaint() {
 }
 
 
-function toggleGridLines() {
-    
-}
-
-function setGridLinesSize() {
-
-}
-
 // Painting mode & settings
 function changePaintingMode(mode) {
     // Hover or Click to draw mode?
@@ -137,15 +166,6 @@ function changePaintingMode(mode) {
     }
 }
 
-function changePaintingType(type) {
-    // Pen or Fill type?
-}
-
-function changePaintingColouring(colouring) {
-    // Colour, random colour, lighting, shadowing, or erasing?
-}
-
-
 
 function clearGrid() {
     // Get the current grid-size:
@@ -154,26 +174,13 @@ function clearGrid() {
     handleGridSizeChange(gridSize);
 }
 
+
 function exportGrid() {
     // html2canvas
     // Export canvas as PNG
     // the element we need to convert to canvas is #eas-painting-board
 }
 
-
-function paintBoard(target) {
-    // Target is the grid-box that is being painted
-    // We just need to get all the settings data and paint it accordingly
-
-}
-
-
-// Run the Etch-A-Sketch
-// Takes default set-up parameters
-// Handles the eventHandlers
-function runEAS() {
-
-}
 
 function handleGridSizeChange(gridSize) {
     let safeGridSize = 0;
@@ -326,6 +333,13 @@ paintingColour.addEventListener('change', (e) => {
 })
 
 
+// Listen for clear button click
+const clearButton = document.querySelector("#clear-grid-button");
+clearButton.addEventListener("click", () => {
+    clearGrid();
+})
+
+
 // Listen for button clicks changing the settings
 const buttons = document.querySelectorAll(".button");
 buttons.forEach((button) => {
@@ -342,10 +356,11 @@ buttons.forEach((button) => {
     // For all Mode buttons:
     if (button.classList.contains("mode")) {
         button.addEventListener('click', () => {
-            // Update the paintingMode to the buttons data- attr
-            const paintingMode = document.querySelector("#painting-mode-info");
-            paintingMode.dataset.mode = button.dataset.button;
-            paintingMode.textContent = capitalizeFirstLetter(button.dataset.button);
+            // // Right now the fill function does not work so this is disabled.
+            // // Update the paintingMode to the buttons data- attr
+            // const paintingMode = document.querySelector("#painting-mode-info");
+            // paintingMode.dataset.mode = button.dataset.button;
+            // paintingMode.textContent = capitalizeFirstLetter(button.dataset.button);
         })
     }
     // For all Setting buttons:
@@ -390,4 +405,17 @@ function paintingListeners() {
         // If mouseup, remove event listeners - no longer painting
         board.addEventListener('mouseup', stopClickPaint);
     }
+}
+
+
+// Default values for grid:
+const initialGridSize = 16;
+const initialGridBorderRadius = 26;
+const intitalGridBoxSpacing = 4;
+
+// Generate grid when page loads first time:
+window.onload = () => {
+    handleGridSizeChange(initialGridSize);
+    handleGridBoxBorderRadiusChange(initialGridBorderRadius);
+    handleGridLineSizeChange(intitalGridBoxSpacing);
 }

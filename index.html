@@ -15,7 +15,7 @@
             <!-- If mouse is held down for longer than a normal click, draw only while mouse is pressed down -->
             <!-- Allow transparency in colours (RGBA) -->
             <div>Pen/Fill Colour
-                <input data-colour id="painting-colour" class="colour-picker" type="color" />
+                <input data-colour="#000000" id="painting-colour" class="colour-picker" type="color"/>
             </div>
             <div>Background/Grid Line Colour
                 <input id="board-colour" class="colour-picker" type="color" />
@@ -39,10 +39,10 @@
                 <h2>Painting Settings</h2>
                 <h3>-</h3>
                 <Button data-button="colour" class="button setting">Colour</Button>
-                <Button data-button="rainbow" class="button setting">Rainbow</Button>
+                <Button data-button="rainbow" data-value="" id="rainbow-button" class="button setting">Rainbow</Button>
                 <Button data-button="shadow" class="button setting">Shadow</Button>
                 <Button data-button="lighten" class="button setting">Lighten</Button>
-                <Button data-button="eraser" class="button setting">Eraser</Button>
+                <!-- <Button data-button="eraser" class="button setting">Eraser</Button> -->
                 <h3>-</h3>
             </div>
 
@@ -50,25 +50,25 @@
             <div>Painting Mode: <span data-mode="pen" id="painting-mode-info">Pen</span></div>
             <div>Painting Setting: <span data-setting="colour" id="painting-setting-info">Colour</span></div>
 
-            <div>Grid Size (slider with small medium large presets?)
+            <div>Grid Size
                 <div class="slider-container">
                     <input id="grid-size-slider" class="slider grid-size-slider" type="range" min="2" max="100" step="1"/>
                 </div>
-                <p>Grid size: <input type="number" min="2" max="100" step="1" id="grid-size-indicator"></input></p>
+                <p><input type="number" min="2" max="100" step="1" id="grid-size-indicator"></input></p>
             </div>
-            <div>Grid Border Size (allow grid boxes to be rounded with border-radius)
+            <div>Grid Border Radius
                 <div class="slider-container">
                     <input id="grid-box-br-slider" class="slider grid-box-br-slider" type="range" min="0" max="100" step="1"/>
                 </div>
-                <p>Border radius: <input type="number" min="0" max="100" step="1" id="grid-box-br-indicator"></input>%</p>
+                <p><input type="number" min="0" max="100" step="1" id="grid-box-br-indicator"></input>%</p>
             </div>
-            <div>Grid Line Size
+            <div>Grid Spacing
                 <div class="slider-container">
                     <input id="grid-line-size-slider" class="slider" type="range" min="0" max="10" step="0.5"/>
                 </div>
-                <p>Grid Line Size: <input type="number" min="0" max="10" step="0.5" id="grid-line-size-indicator"></input>px</p>
+                <p><input type="number" min="0" max="10" step="0.5" id="grid-line-size-indicator"></input>px</p>
             </div>
-            <div><Button>Clear</Button></div>
+            <div><Button id="clear-grid-button" class="button clear">Clear</Button></div>
             <div><Button>Export to PNG</Button></div>
             <div></div>
             <div></div>

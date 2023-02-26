@@ -74,4 +74,5 @@ body {
     /* border-radius: 5px; */
     min-height: 100%;
     aspect-ratio: 1;
+    max-width: 640px;
 }
