@@ -444,8 +444,8 @@ function paintingListeners() {
 
 // Default values for grid:
 const initialGridSize = 16;
-const initialGridBorderRadius = 26;
-const intitalGridBoxSpacing = 4;
+const initialGridBorderRadius = 0;
+const intitalGridBoxSpacing = 1;
 
 // Generate grid when page loads first time:
 window.onload = () => {

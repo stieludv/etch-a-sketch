@@ -6,18 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-A-Sketch</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Roboto&family=Zen+Dots&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="etch-a-sketch">
-        <h1 id="eas-title"></h1>
+        <h1 id="eas-title">Etch-A-Sketch</h1>
         <div id="eas-settings-panel">
+            <h2>Settings</h2>
             <!-- Click mouse inside etch a sketch to toggle drawing/not drawing mode -->
             <!-- If mouse is held down for longer than a normal click, draw only while mouse is pressed down -->
             <!-- Allow transparency in colours (RGBA) -->
-            <div>Pen/Fill Colour
+            <div>
+                <h3>Pen/Fill Colour</h3>
                 <input data-colour="#000000" id="painting-colour" class="colour-picker" type="color"/>
             </div>
-            <div>Background/Grid Line Colour
+            <div>
+                <h3>Background/Grid Line Colour</h3>
                 <input id="board-colour" class="colour-picker" type="color" />
             </div>
             <!-- <div>Grid Line Colour
@@ -26,47 +32,44 @@
             <!-- Colour grabber is redundant -->
             <!-- <div>Colour Grabbesr</div> -->
             <div>
-                <h2>Painting Types</h2>
-                <h3>-</h3>
+                <h3>Painting Types</h3>
                 <Button data-button="hover" class="button type">Hover</Button>
                 <Button data-button="click" class="button type">Click</Button>
-                <h3>-</h3>
-                <h2>Painting Modes</h2>
-                <h3>-</h3>
+                <h3>Painting Modes</h3>
                 <Button data-button="pen" class="button mode">Pen</Button>
                 <Button data-button="fill" class="button mode">Fill</Button>
-                <h3>-</h3>
-                <h2>Painting Settings</h2>
-                <h3>-</h3>
+                <h3>Painting Settings</h3>
                 <Button data-button="colour" class="button setting">Colour</Button>
                 <Button data-button="rainbow" data-value="" id="rainbow-button" class="button setting">Rainbow</Button>
                 <Button data-button="shadow" class="button setting">Shadow</Button>
                 <Button data-button="lighten" class="button setting">Lighten</Button>
                 <!-- <Button data-button="eraser" class="button setting">Eraser</Button> -->
-                <h3>-</h3>
             </div>
 
             <div>Painting Type: <span data-type="hover" id="painting-type-info">Hover</span></div>
             <div>Painting Mode: <span data-mode="pen" id="painting-mode-info">Pen</span></div>
             <div>Painting Setting: <span data-setting="colour" id="painting-setting-info">Colour</span></div>
 
-            <div>Grid Size
+            <div class="slider-box-input">
+                <h3>Grid Size</h3>
                 <div class="slider-container">
                     <input id="grid-size-slider" class="slider grid-size-slider" type="range" min="2" max="100" step="1"/>
                 </div>
-                <p><input type="number" min="2" max="100" step="1" id="grid-size-indicator"></input></p>
+                <p><input type="number" min="2" max="100" step="1" id="grid-size-indicator"></input> boxes</p>
             </div>
-            <div>Grid Border Radius
+            <div class="slider-box-input">
+                <h3>Grid Border Radius</h3>
                 <div class="slider-container">
                     <input id="grid-box-br-slider" class="slider grid-box-br-slider" type="range" min="0" max="100" step="1"/>
                 </div>
-                <p><input type="number" min="0" max="100" step="1" id="grid-box-br-indicator"></input>%</p>
+                <p><input type="number" min="0" max="100" step="1" id="grid-box-br-indicator"></input> %</p>
             </div>
-            <div>Grid Spacing
+            <div class="slider-box-input">
+                <h3>Grid Spacing</h3>
                 <div class="slider-container">
                     <input id="grid-line-size-slider" class="slider" type="range" min="0" max="10" step="0.5"/>
                 </div>
-                <p><input type="number" min="0" max="10" step="0.5" id="grid-line-size-indicator"></input>px</p>
+                <p><input type="number" min="0" max="10" step="0.5" id="grid-line-size-indicator"></input> px</p>
             </div>
             <div><Button id="clear-grid-button" class="button clear">Clear</Button></div>
             <div><Button>Export to PNG</Button></div>
