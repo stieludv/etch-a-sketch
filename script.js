@@ -453,3 +453,40 @@ window.onload = () => {
     handleGridBoxBorderRadiusChange(initialGridBorderRadius);
     handleGridLineSizeChange(intitalGridBoxSpacing);
 }
+
+
+
+
+// Handle open/close of settings:
+const settingsPanel = document.querySelector("#eas-settings-panel");
+
+const openButton = document.querySelector("#eas-settings-panel-open");
+openButton.addEventListener('click', () => {
+    settingsPanel.style.display = "flex";
+})
+
+const closeButton = document.querySelector("#eas-settings-panel-close");
+closeButton.addEventListener('click', () => {
+    settingsPanel.style.display = "none";
+})
+
+
+
+// Convert board to image (capture)
+function captureBoard() {
+    	// Convert the div to image (canvas)
+	html2canvas(document.getElementById("eas-painting-board")).then((canvas) => {
+
+        const img    = canvas.toDataURL("image/png");
+        const imgElement = document.createElement("img");
+        imgElement.src = img;
+        const imgContainer = document.querySelector("#eas-image-container");
+        if (imgContainer.firstChild) imgContainer.removeChild(imgContainer.firstChild) 
+        imgContainer.append(imgElement);
+	});
+}
+
+const captureButton = document.querySelector("#capture-grid-button");
+captureButton.addEventListener("click", () => {
+    captureBoard();
+})
